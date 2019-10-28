@@ -116,5 +116,5 @@ readString(BX);
 else if(AX==2)
 readSector(BX, CX);
 else
-printString("u made a mistake sweaty");
+printString("Error!");
 }
