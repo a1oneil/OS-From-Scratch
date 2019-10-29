@@ -1,6 +1,6 @@
-// entire project is in progress, this only accounts for projects A & B out of A,B,C,D,E.
-// Arianna O’Neil, Logan Teceno, Sam Silvia
-// Dr. Black’s COMP 350 Project B
+- // entire project is in progress, this only accounts for projects A & B out of A,B,C,D,E.
+- // Arianna O’Neil, Logan Teceno, Sam Silvia
+- // Dr. Black’s COMP 350 Project B
 
 ## Step 1: Printing to the Screen - Interrupt 0x10 (Logan)
 Printing to the Screen w/ printString
