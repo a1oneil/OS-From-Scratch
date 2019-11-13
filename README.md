@@ -51,8 +51,8 @@ Created interrupt calls for printString, readString, and readSector
 
 ## Project C
 
-// Arianna O’Neil, Logan Teceno, Sam Silvia, Chris Roppolo
-// Dr. Black’s COMP 350 Project C
+- // Arianna O’Neil, Logan Teceno, Sam Silvia, Chris Roppolo
+- // Dr. Black’s COMP 350 Project C
 
 ## Step 1: Read a file and print it (Logan & Arianna)
 readFile takes a character array containing a file name and reads the file into a buffer
