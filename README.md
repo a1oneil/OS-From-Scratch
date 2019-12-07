@@ -117,3 +117,65 @@ Recognize the command “exec filename”
 - When the user types “exec filename” in the shell, the shell will call the kernel to load and execute the project through the executeFile function.
 - If the file is not found, an error message is printed out.
 
+## Project D
+
+- // Arianna O’Neil, Logan Teceno, Sam Silvia, Chris Roppolo
+- // Dr. Black’s COMP 350 Project D
+
+## Step 1: Write Sector(Logan)
+As the name implies, the writeSector function will write a sector in the OS.
+- This function closely resembles the steps we take to read sectors. As such, there were minimal changes to be made.
+
+## Step 2: List the Directory Contents (Logan)
+“dir” is our new command. This command will list the files located within the directory.
+- To test this, type “dir” while the OS is running.
+- The sizes of the files will also be printed out, but that is not totally correct.
+
+
+## Step 3: Delete File (Arianna)
+Since we are now able to write to the disk, we can delete files using the function 'deleteFile.'
+- Loads the directory and map char arrays (512 bytes).
+- Searches to find the file--
+- Created a 'compareCheck' function to assist this process in kernel.c.
+    - compareCheck searches (checks) for a file at the designated location.
+    - checks the first characters to see if it is a match.
+- Once the file is found, the sectors are set to zero.
+- Then, we write the dir and map back to their appropriate sectors.
+- Also added an appropriate interrupt 0x21.
+    - if AX = 7, BX = the address of the character array holding the file name.
+- In the shell there is a 'del filename' that deletes named file.
+
+## Step 4: Write File (Arianna)
+Creating a function called 'writeFile.'
+- The function is called with a character array holding the file contents
+- A char array holding the file name
+- Number of sectors to be written to the disk
+- Added an appropriate interrupt 0x21 calling 'writeFile.'
+    - if AX = 8, BX = address of char array holding the file to be written
+                 CX = address of char array holding the file name
+                 DX = num of sectors
+- First, we load the map and dir sectors into char arrays .
+- Then, we find a free dir entry, '\0.'
+- Finally, it copies the name to that dir entry. 
+    - If the name is less than 6 bytes, the remaining bytes are filled with '\0.'
+- To verify this, we created this interrupt before running the shell in the kernel:
+    - interrupt(0x21,8,"this is a test message","testmg",3);
+- When you call dir, 'testmg' appears.
+- When you call type, 'testmg' prints out.
+
+
+## Step 5: Copying a file (Sam)
+This step creates a command that the user can type in shell that will copy the contents of a file to another file (without deleting the contents of filename1). 
+- The syntax for this command is “copy filename1 filename2”
+- To test this command load message.txt into disk.c, type “copy messag mess2” into shell, then type “type mess2” into the shell. The contents of message.txt should print out.
+
+
+## Step 6: Creating a text file (Sam)
+This step creates a command that the user can type in shell that will create a text file.
+- To test this, type “type textfl” into shell
+- The command line should repeatedly prompt you for a line of text until you enter an empty line
+Each line will be put into a buffer and this buffer will be written to a file
+Your file will then be written
+
+
+
