@@ -1,0 +1,46 @@
+// Logan Teceno
+
+void printString(char*);
+void printChar(char);
+void readString(char*);
+void readSector(char*,int);
+
+void main() {
+
+//	int startVidMem = 0xb800;
+//	int vidMemOffset = 0x0;
+//	int white = 0x7;
+//	char* letters = "Hello World\0";
+//
+//	while(*letters != 0x0) {
+//		putInMemory(startVidMem, vidMemOffset, *letters);
+//		vidMemOffset++;
+//		putInMemory(startVidMem, vidMemOffset, white);
+//		vidMemOffset++;
+//		// advance letters pointer
+//		letters++;
+//	}
+
+	printString("Hello World");
+
+	printChar('k');
+
+//	int i = 0;
+//	for (int i = 0; i <= 6; i++) {
+//		printChar('x');	}
+
+	while(1);
+}
+
+void printString(char* chars)
+{
+	while (*chars != 0x0) {
+		interrupt(0x10, 0xe*256+*chars, 0, 0, 0);
+		*chars++;
+	}
+}
+
+void printChar(char c)
+{
+	interrupt(0x10, 0xe*256+c, 0, 0, 0);
+}

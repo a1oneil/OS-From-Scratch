@@ -1,0 +1,77 @@
+// Logan Teceno
+
+void printString(char*);
+void printChar(char);
+void readString(char*);
+void readSector(char*,int);
+
+void main() {
+
+	char line[80];
+
+	printString("Hello World | ");
+
+	printString("Enter a line: ");
+	readString(line);
+	printString(line);
+
+	while(1);
+}
+
+void printString(char* chars)
+{
+	while (*chars != 0x0) {
+		interrupt(0x10, 0xe*256+*chars, 0, 0, 0);
+		*chars++;
+	}
+}
+
+void printChar(char c)
+{
+	interrupt(0x10, 0xe*256+c, 0, 0, 0);
+}
+
+void readString(char* userCommand)
+{
+	int i = 0;
+
+	char enterKey = 0xd;
+	char lineFeed = 0xa;
+	char stringEnd = 0x0;
+	char backKey = 0x8;
+
+	char reader = interrupt(0x16, 0, 0, 0, 0);
+	interrupt(0x10, 0xe*256+reader, 0, 0, 0);
+
+	while(reader != enterKey)
+	{
+		if(reader == backKey && i > 0)
+		{
+			i--;
+		}
+		else if(reader == backKey)
+		{
+			i = 0;
+		}
+		else
+		{
+		userCommand[i] = reader;
+		i++;
+		}
+
+		reader = interrupt(0x16, 0, 0, 0, 0);
+		interrupt(0x10, 0xe*256+reader, 0, 0, 0);
+
+		if(reader == backKey)
+		{
+			interrupt(0x10, 0xe*256+stringEnd, 0, 0, 0);
+			interrupt(0x10, 0xe*256+backKey, 0, 0, 0);
+		}
+	}
+
+	userCommand[i] = lineFeed;
+	i++;
+	userCommand[i] = stringEnd;
+
+	interrupt(0x10, 0xe*256+lineFeed, 0, 0, 0);
+}
